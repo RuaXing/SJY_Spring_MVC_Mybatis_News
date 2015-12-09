@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjy.dao.NewMapper" >
+  <resultMap id="BaseResultMap" type="com.sjy.model.New" >
+    <id column="newsID" property="newsid" jdbcType="INTEGER" />
+    <result column="newsTitle" property="newstitle" jdbcType="VARCHAR" />
+    <result column="typeID" property="typeid" jdbcType="INTEGER" />
+    <result column="newsDate" property="newsdate" jdbcType="TIMESTAMP" />
+    <result column="newsContent" property="newscontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    newsID, newsTitle, typeID, newsDate, newsContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from new
+    where newsID = #{newsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from new
+    where newsID = #{newsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sjy.model.New" >
+    insert into new (newsID, newsTitle, typeID, 
+      newsDate, newsContent)
+    values (#{newsid,jdbcType=INTEGER}, #{newstitle,jdbcType=VARCHAR}, #{typeid,jdbcType=INTEGER}, 
+      #{newsdate,jdbcType=TIMESTAMP}, #{newscontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.model.New" >
+    insert into new
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        newsID,
+      </if>
+      <if test="newstitle != null" >
+        newsTitle,
+      </if>
+      <if test="typeid != null" >
+        typeID,
+      </if>
+      <if test="newsdate != null" >
+        newsDate,
+      </if>
+      <if test="newscontent != null" >
+        newsContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        #{newsid,jdbcType=INTEGER},
+      </if>
+      <if test="newstitle != null" >
+        #{newstitle,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="newsdate != null" >
+        #{newsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newscontent != null" >
+        #{newscontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.model.New" >
+    update new
+    <set >
+      <if test="newstitle != null" >
+        newsTitle = #{newstitle,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeID = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="newsdate != null" >
+        newsDate = #{newsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newscontent != null" >
+        newsContent = #{newscontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where newsID = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.model.New" >
+    update new
+    set newsTitle = #{newstitle,jdbcType=VARCHAR},
+      typeID = #{typeid,jdbcType=INTEGER},
+      newsDate = #{newsdate,jdbcType=TIMESTAMP},
+      newsContent = #{newscontent,jdbcType=VARCHAR}
+    where newsID = #{newsid,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select *
+    from new
+  </select>
+  
+</mapper>
